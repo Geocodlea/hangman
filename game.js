@@ -27,6 +27,19 @@ const scoreEl = document.getElementById("score");
 const playAgainBtn = document.getElementById("playAgain");
 const hintBtn = document.getElementById("hint");
 const keyboard = document.getElementById("keyboard");
+const closeBtn = document.getElementsByClassName("close")[0];
+
+function showModal(message) {
+  var modal = document.getElementById("modal");
+  var modalMessage = document.getElementById("modal-message");
+  modalMessage.innerHTML = message;
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+closeBtn.onclick = function () {
+  modal.style.display = "none";
+};
 
 playAgainBtn.addEventListener("click", function () {
   // Reset the game
@@ -91,12 +104,21 @@ keyboard.addEventListener("click", function (e) {
     // Check if the player won or lost
     if (word === wordToShow) {
       score += remainingGuesses * 10;
+      showModal(
+        'Congratulations! You won the game. The word was: "<b>' +
+          word +
+          '</b>". Your score is: ' +
+          score
+      );
       scoreEl.innerHTML =
         'You won! The word was: <b>"' + word + '"</b>. Your score is: ' + score;
       playAgainBtn.style.display = "block";
       hintBtn.style.display = "none";
       keyboard.style.display = "none";
     } else if (remainingGuesses === 0) {
+      showModal(
+        'You lost! The word was: "<b>' + word + '</b>". Your score is: ' + score
+      );
       scoreEl.innerHTML =
         'You lost! The word was: <b>"' +
         word +
