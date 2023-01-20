@@ -1,1 +1,1 @@
-# hangman
+## Simple Javscript Hangman Game
