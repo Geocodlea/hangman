@@ -7,13 +7,12 @@ const images = [
   "img/5.png",
   "img/6.png",
 ];
-let score = 0;
+
 let word;
 
 async function getRandomWord() {
   const response = await fetch("https://random-word-api.herokuapp.com/word");
   const data = await response.json();
-  console.log(data[0]);
   return data[0];
 }
 
@@ -23,6 +22,7 @@ async function startGame() {
   word = word.toUpperCase();
 
   // Initialize variables
+  let score = 0;
   let correctGuesses = [];
   let incorrectGuesses = "";
   let remainingGuesses = 6;
@@ -74,6 +74,9 @@ async function startGame() {
       hint = word[Math.floor(Math.random() * word.length)];
     } while (correctGuesses.includes(hint) || incorrectGuesses.includes(hint));
     alert("Hint: " + hint);
+
+    score -= 10;
+    scoreEl.innerHTML = "Score: " + score;
   });
 
   keyboard.addEventListener("click", function (e) {
@@ -82,6 +85,7 @@ async function startGame() {
 
       // Check if the guess is correct
       if (word.includes(guess)) {
+        score += 10;
         // Update the correct guesses array
         for (let i = 0; i < word.length; i++) {
           if (word[i] === guess && !correctGuesses.includes(guess)) {
@@ -89,12 +93,15 @@ async function startGame() {
           }
         }
       } else {
+        score -= 10;
         // Update the incorrect guesses string
         if (!incorrectGuesses.includes(guess)) {
           incorrectGuesses += guess;
           remainingGuesses--;
         }
       }
+
+      scoreEl.innerHTML = "Score: " + score;
 
       // Display the image
       imageEl.src = images[6 - remainingGuesses];
@@ -114,7 +121,6 @@ async function startGame() {
 
       // Check if the player won or lost
       if (word === wordToShow) {
-        score += remainingGuesses * 10;
         showModal(
           'Congratulations! You won the game. The word was: "<b>' +
             word +
