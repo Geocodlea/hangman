@@ -36,7 +36,6 @@ async function startGame() {
   const playAgainBtn = document.getElementById("playAgain");
   const hintBtn = document.getElementById("hint");
   const keyboard = document.getElementById("keyboard");
-  const closeBtn = document.getElementsByClassName("close")[0];
 
   function showModal(message) {
     var modal = document.getElementById("modal");
@@ -44,11 +43,6 @@ async function startGame() {
     modalMessage.innerHTML = message;
     modal.style.display = "block";
   }
-
-  // When the user clicks on <span> (x), close the modal
-  closeBtn.onclick = function () {
-    modal.style.display = "none";
-  };
 
   playAgainBtn.addEventListener("click", async function () {
     // Reset the game
@@ -66,6 +60,7 @@ async function startGame() {
     scoreEl.textContent = "Score: " + score;
     hintBtn.style.display = "block";
     keyboard.style.display = "block";
+    modal.style.display = "none";
   });
 
   hintBtn.addEventListener("click", function () {
@@ -112,23 +107,23 @@ async function startGame() {
         if (correctGuesses.includes(word[i])) {
           wordToShow += word[i];
         } else {
-          wordToShow += "_";
+          wordToShow += "_ ";
         }
       }
       wordEl.textContent = wordToShow;
       incorrectEl.textContent = "Incorrect guesses: " + incorrectGuesses;
-      remainingEl.textContent = "Remaining guesses: " + remainingGuesses;
+      remainingEl.textContent = "Remaining chances: " + remainingGuesses;
 
       // Check if the player won or lost
       if (word === wordToShow) {
         showModal(
-          'Congratulations! You won the game. The word was: "<b>' +
+          '<h2>You won!</h2> The word was: <b>"' +
             word +
-            '</b>". Your score is: ' +
+            '"</b>. Your score is: ' +
             score
         );
         scoreEl.innerHTML =
-          'You won! The word was: <b>"' +
+          '<h2>You won!</h2> The word was: <b>"' +
           word +
           '"</b>. Your score is: ' +
           score;
@@ -137,13 +132,13 @@ async function startGame() {
         keyboard.style.display = "none";
       } else if (remainingGuesses === 0) {
         showModal(
-          'You lost! The word was: "<b>' +
+          '<h2>You lost :(</h2> The word was: "<b>' +
             word +
             '</b>". Your score is: ' +
             score
         );
         scoreEl.innerHTML =
-          'You lost! The word was: <b>"' +
+          '<h2>You lost :(</h2> The word was: <b>"' +
           word +
           '"</b>. Your score is: ' +
           score;

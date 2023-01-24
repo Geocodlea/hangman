@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Hangman Game</title>
+    <title>Hangman</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
     <div id="start" class="gameContainer">
       <div id="game-rules">
         <h1>HANGMAN</h1>
-        <h2>Game Rules</h2>
         <p>
           The game is a word guessing game where you need to guess a random word
           letter by letter.
@@ -21,7 +20,7 @@
           You get 10 points for a good guess and -10 points for a wrong guess.
         </p>
         <p>
-          You can use the hint button to reveal one letter of the word and loose
+          You can use the hint button to reveal one letter of the word and lose
           10 points.
         </p>
       </div>
@@ -64,14 +63,15 @@
       <div id="remaining"></div>
       <div id="score">Score: 0</div>
       <div class="button-container">
-        <button id="playAgain" style="display: none">Play Again</button>
         <button id="hint">Hint</button>
       </div>
     </div>
     <div id="modal" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
         <p id="modal-message"></p>
+        <div class="button-container">
+          <button id="playAgain">Play Again</button>
+        </div>
       </div>
     </div>
     <script src="game.js"></script>
